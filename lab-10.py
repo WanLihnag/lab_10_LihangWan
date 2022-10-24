@@ -20,17 +20,16 @@ df = df[df.ocean_proximity.isin(location_filter)]
 if form =='Low':
     df = df[df.median_income <= 2.5]
 elif form == 'Medium':
-    df = df[df.median_income > 2.5 & df.median_income < 4.5]
+    df = df[(df.median_income > 2.5) & (df.median_income < 4.5)]
 else :
     df = df[df.median_income >= 4.5]
 
 
 
-
+st.subheader('See more filters in the sidebar:')
 st.map(df)
 
 st.subheader('Histogram of the Median House Value')
-fig, ax = plt.subplots(figsize=(30, 0))
-pop_sum = df.groupby('median_house_value').sum()
-pop_sum.plot.bar(ax=ax)
+fig, ax = plt.subplots(figsize=(13,8))
+val = df.median_house_value.hist(bins=30)
 st.pyplot(fig)
